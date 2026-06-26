@@ -46,7 +46,8 @@ program
     if (requiresApiKey(provider) && !resolveApiKey()) {
       fail(
         "No API key found for the `api` provider. Run `mta auth`, set MYTESTERARMY_API_KEY / ANTHROPIC_API_KEY, " +
-          "or use `--provider claude-code` / `--provider codex` to run on your plan.",
+          "use `--provider claude-code` / `--provider codex` to run on your plan, " +
+          "or `--provider ollama` to run fully local with no key.",
       );
     }
 
@@ -129,6 +130,7 @@ program
       console.log(`api provider:   ${status.apiKey ? "key configured" : "no key"}`);
       console.log(`claude-code:    uses your Claude Code login (run \`claude\` to log in)`);
       console.log(`codex:          uses your Codex login (run \`codex login\`)`);
+      console.log(`ollama:         fully local, no key (run the Ollama server + pull a tool-capable model)`);
       console.log(`api model:      ${status.model}`);
       console.log(`config:         ${status.configPath}`);
     }

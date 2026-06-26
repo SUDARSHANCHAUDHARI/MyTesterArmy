@@ -3,11 +3,12 @@ import type { RunResult } from "./agent.js";
 import type { TestCase } from "./tests.js";
 import { runWithClaudeCode } from "./providers/claudeCode.js";
 import { runWithCodex } from "./providers/codex.js";
+import { runWithOllama } from "./providers/ollama.js";
 import { resolveApiKey, resolveModel } from "./config.js";
 
-export type ProviderName = "api" | "claude-code" | "codex";
+export type ProviderName = "api" | "claude-code" | "codex" | "ollama";
 
-export const PROVIDERS: ProviderName[] = ["api", "claude-code", "codex"];
+export const PROVIDERS: ProviderName[] = ["api", "claude-code", "codex", "ollama"];
 
 export interface DispatchOptions {
   provider: ProviderName;
@@ -53,6 +54,8 @@ export async function runOne(
       return runWithClaudeCode(test, body, { ...common, model: opts.modelOverride });
     case "codex":
       return runWithCodex(test, body, { ...common, model: opts.modelOverride });
+    case "ollama":
+      return runWithOllama(test, body, { ...common, model: opts.modelOverride });
     default: {
       const _exhaustive: never = opts.provider;
       throw new Error(`Unknown provider: ${String(_exhaustive)}`);

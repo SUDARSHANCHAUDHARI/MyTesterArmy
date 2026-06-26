@@ -80,6 +80,7 @@ Pick how the agent loop runs and how it's billed with `--provider`:
 | `api` (default) | Anthropic API key | nothing else | your API key (metered) |
 | `claude-code` | your Claude Code login | `claude` logged in | your Claude/Max plan |
 | `codex` | your Codex login | `codex login` | your ChatGPT plan |
+| `ollama` | none — fully local | Ollama server + a tool-capable model | free / local compute |
 
 ```bash
 # Direct API (default)
@@ -90,7 +91,17 @@ mta run examples/tests/02-auth-smoke.md --url http://localhost:3000 --provider c
 
 # Codex — uses your ChatGPT plan (log in first: `codex login`)
 mta run examples/tests/02-auth-smoke.md --url http://localhost:3000 --provider codex
+
+# Ollama — fully local, no key (needs the Ollama server + a tool-capable model)
+ollama pull qwen3:8b
+mta run examples/tests/02-auth-smoke.md --url http://localhost:3000 --provider ollama
 ```
+
+The `ollama` provider runs the same in-process loop as `api` against a local
+model — no key, no network, no plan. The model **must support structured tool
+calling**: `qwen3` works well (default `qwen3:8b`); models that emit tool calls
+as plain JSON text (e.g. `qwen2.5-coder`) won't drive the browser. Override with
+`MTA_OLLAMA_MODEL` / `MTA_OLLAMA_HOST`.
 
 Under the hood, the `claude-code` and `codex` providers drive a shared
 **Playwright browser MCP server** (`mta-browser-mcp`); the host agent runs the
@@ -187,6 +198,7 @@ Claude plugin via `.claude-plugin/marketplace.json`.
 | --- | --- |
 | Env (CI) | `MYTESTERARMY_API_KEY` or `ANTHROPIC_API_KEY` |
 | Env | `MYTESTERARMY_MODEL` |
+| Env | `MTA_OLLAMA_MODEL` (default `qwen3:8b`) · `MTA_OLLAMA_HOST` (default `http://127.0.0.1:11434`) |
 | Env | `MTA_BROWSER_CHANNEL` — drive a system browser (`chrome`, `msedge`) instead of bundled Chromium |
 | File | `~/.mytesterarmy/config.json` (`mta auth`) |
 

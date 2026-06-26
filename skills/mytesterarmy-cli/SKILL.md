@@ -68,9 +68,12 @@ mta run "verify the pricing CTA starts the signup flow" --url https://example.co
 Useful flags:
 
 - `--url <url>` — target under test; substituted for the `<target_url>` placeholder.
-- `--provider <api|claude-code|codex>` — how the loop runs and how it's billed
-  (default `api`). `claude-code` and `codex` use your subscription/plan instead
-  of a metered API key (log in via `claude` or `codex login` first).
+- `--provider <api|claude-code|codex|ollama>` — how the loop runs and how it's
+  billed (default `api`). `claude-code` and `codex` use your subscription/plan
+  instead of a metered API key (log in via `claude` or `codex login` first).
+  `ollama` runs fully local with no key (needs the Ollama server and a
+  tool-capable model such as `qwen3:8b`; set `MTA_OLLAMA_MODEL` to override).
+  When no API key is available, prefer `ollama` for a free local run.
 - `--json` — machine-readable output; always use this when an agent consumes the result.
 - `--headed` — visible browser, for local debugging.
 - `--timeout <ms>` — per-action timeout (default 15000).
