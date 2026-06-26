@@ -187,7 +187,18 @@ Claude plugin via `.claude-plugin/marketplace.json`.
 | --- | --- |
 | Env (CI) | `MYTESTERARMY_API_KEY` or `ANTHROPIC_API_KEY` |
 | Env | `MYTESTERARMY_MODEL` |
+| Env | `MTA_BROWSER_CHANNEL` — drive a system browser (`chrome`, `msedge`) instead of bundled Chromium |
 | File | `~/.mytesterarmy/config.json` (`mta auth`) |
+
+### No bundled Chromium? Use a system browser
+
+If `npx playwright install chromium` is blocked (locked-down CI, sandbox), point
+`mta` at an installed Chrome/Edge instead — no download needed:
+
+```bash
+export MTA_BROWSER_CHANNEL=chrome
+mta run examples/tests/01-landing-page.md --url http://localhost:3000
+```
 
 ## License
 

@@ -30,6 +30,7 @@ export async function startMcpServer(): Promise<void> {
     headed: process.env.MTA_HEADED === "1",
     timeout: Number(process.env.MTA_TIMEOUT ?? 15000),
     artifactDir,
+    channel: process.env.MTA_BROWSER_CHANNEL || undefined,
   });
 
   let started = false;

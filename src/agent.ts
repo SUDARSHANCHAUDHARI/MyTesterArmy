@@ -135,6 +135,7 @@ export async function runTest(
     headed: opts.headed,
     timeout: opts.timeout,
     artifactDir,
+    channel: process.env.MTA_BROWSER_CHANNEL || undefined,
   });
 
   const log = opts.onStep ?? (() => {});

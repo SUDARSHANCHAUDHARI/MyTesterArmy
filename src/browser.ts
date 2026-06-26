@@ -8,6 +8,12 @@ export interface BrowserOptions {
   timeout: number;
   /** Directory where screenshots and traces are written. */
   artifactDir: string;
+  /**
+   * Optional Playwright browser channel (e.g. "chrome", "msedge"). When set,
+   * Playwright drives the installed system browser instead of its bundled
+   * Chromium — useful where the bundled download is blocked.
+   */
+  channel?: string;
 }
 
 export interface PageSnapshot {
@@ -31,7 +37,10 @@ export class BrowserSession {
   constructor(private readonly opts: BrowserOptions) {}
 
   async start(): Promise<void> {
-    this.browser = await chromium.launch({ headless: !this.opts.headed });
+    this.browser = await chromium.launch({
+      headless: !this.opts.headed,
+      ...(this.opts.channel ? { channel: this.opts.channel } : {}),
+    });
     this.context = await this.browser.newContext({
       viewport: { width: 1280, height: 800 },
     });
