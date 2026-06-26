@@ -5,6 +5,26 @@
   "type": "module",
   "license": "MIT",
   "author": "SUDARSHANCHAUDHARI",
+  "keywords": [
+    "qa",
+    "testing",
+    "ai",
+    "agent",
+    "playwright",
+    "browser",
+    "e2e",
+    "cli",
+    "claude",
+    "ollama"
+  ],
+  "homepage": "https://github.com/SUDARSHANCHAUDHARI/MyTesterArmy#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SUDARSHANCHAUDHARI/MyTesterArmy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SUDARSHANCHAUDHARI/MyTesterArmy/issues"
+  },
   "bin": {
     "mta": "dist/cli.js",
     "mytesterarmy": "dist/cli.js",

@@ -29,7 +29,7 @@ program
   .option("-u, --url <url>", "Target URL under test")
   .option(
     "-p, --provider <name>",
-    `Runner: ${PROVIDERS.join(" | ")} (api uses a key; claude-code/codex use your plan)`,
+    `Runner: ${PROVIDERS.join(" | ")} (api=key, claude-code/codex=your plan, ollama=local no key)`,
     "api",
   )
   .option("--headed", "Run with a visible browser window", false)
