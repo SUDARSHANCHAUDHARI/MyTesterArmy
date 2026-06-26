@@ -1,0 +1,21 @@
+{
+  "name": "mytesterarmy-agent-skills",
+  "owner": {
+    "name": "SudarshanTechLabs",
+    "url": "https://github.com/SUDARSHANCHAUDHARI/MyTesterArmy"
+  },
+  "metadata": {
+    "description": "Agent skills for MyTesterArmy CLI workflows",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "mytesterarmy-cli",
+      "description": "Use MyTesterArmy CLI to validate web app behavior after changes with real-browser markdown tests, screenshots, and strict pass/fail reporting.",
+      "source": "./",
+      "skills": [
+        "./skills/mytesterarmy-cli"
+      ]
+    }
+  ]
+}

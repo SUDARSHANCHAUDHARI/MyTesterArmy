@@ -1,0 +1,38 @@
+{
+  "name": "mytesterarmy",
+  "version": "0.1.0",
+  "description": "AI QA agent that clicks through your website like a real human.",
+  "type": "module",
+  "license": "MIT",
+  "author": "SUDARSHANCHAUDHARI",
+  "bin": {
+    "mta": "dist/cli.js",
+    "mytesterarmy": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "skills",
+    "examples",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.106.0",
+    "commander": "^13.0.0",
+    "playwright": "^1.49.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

@@ -1,0 +1,29 @@
+name: Regression report
+description: Previously working behavior is now broken
+labels: ["regression", "needs-info"]
+body:
+  - type: input
+    id: last-good
+    attributes:
+      label: Last known good version
+      description: The mta version where this worked.
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Exact command
+      render: bash
+    validations:
+      required: true
+  - type: textarea
+    id: diff
+    attributes:
+      label: What changed
+      description: The verdict/behavior before vs now.
+    validations:
+      required: true
+  - type: input
+    id: artifacts
+    attributes:
+      label: Artifact path

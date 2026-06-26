@@ -1,0 +1,15 @@
+node_modules/
+dist/
+*.log
+
+# Local run artifacts (screenshots, traces, results)
+.mytesterarmy/
+
+# Local credentials / config
+.env
+.env.*
+!.env.example
+config.local.json
+
+# OS
+.DS_Store

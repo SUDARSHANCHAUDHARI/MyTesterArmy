@@ -1,0 +1,35 @@
+name: Bug report
+description: A CLI behavior bug or a broken documented flow
+labels: ["bug", "needs-info"]
+body:
+  - type: textarea
+    id: command
+    attributes:
+      label: Exact command
+      description: The full `mta run ...` command you ran.
+      render: bash
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Target URL / environment
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs actual
+      description: What you expected, and what happened (verdict, exit code, reason).
+    validations:
+      required: true
+  - type: input
+    id: artifacts
+    attributes:
+      label: Artifact path
+      description: Path under `.mytesterarmy/<timestamp>-<test>/`.
+  - type: input
+    id: version
+    attributes:
+      label: mta version
+      description: Output of `mta --version` and your Node version.
