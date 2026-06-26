@@ -68,11 +68,24 @@ mta run "verify the pricing CTA starts the signup flow" --url https://example.co
 Useful flags:
 
 - `--url <url>` — target under test; substituted for the `<target_url>` placeholder.
+- `--provider <api|claude-code|codex>` — how the loop runs and how it's billed
+  (default `api`). `claude-code` and `codex` use your subscription/plan instead
+  of a metered API key (log in via `claude` or `codex login` first).
 - `--json` — machine-readable output; always use this when an agent consumes the result.
 - `--headed` — visible browser, for local debugging.
 - `--timeout <ms>` — per-action timeout (default 15000).
 - `--max-steps <n>` — cap agent turns per test (default 40).
-- `--model <model>` — override the Claude model (default `claude-opus-4-8`).
+- `--model <model>` — override the model (default depends on provider).
+
+## Using the browser tools inside this session
+
+`mta` also ships a Playwright browser MCP server (`mta-browser-mcp`). When it's
+registered as an MCP server in the host agent, drive it directly with the
+`navigate`, `read_page`, `click`, `fill`, and `screenshot` tools, then judge
+PASS/FAILED from what `read_page` returns. Register it once:
+
+- Claude Code — `.mcp.json`: `{ "mcpServers": { "browser": { "command": "mta-browser-mcp" } } }`
+- Codex — `~/.codex/config.toml`: `[mcp_servers.browser]` with `command = "mta-browser-mcp"`
 
 Exit code is `0` when all tests pass, `1` when any fail — gate CI on it.
 

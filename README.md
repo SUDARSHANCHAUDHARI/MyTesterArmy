@@ -44,10 +44,11 @@ npx playwright install chromium
 npm run build
 ```
 
-Authenticate (stores the key in `~/.mytesterarmy/config.json`):
+Authenticate. Either use a metered API key, or skip this and run on your
+existing Claude Code / Codex plan (see [Run modes](#run-modes-providers)):
 
 ```bash
-mta auth
+mta auth                              # API key → ~/.mytesterarmy/config.json
 # or, for CI:
 export MYTESTERARMY_API_KEY=sk-ant-...
 ```
@@ -70,6 +71,59 @@ Run a whole directory:
 mta run examples/tests/ --url "http://localhost:3000"
 ```
 
+## Run modes (providers)
+
+Pick how the agent loop runs and how it's billed with `--provider`:
+
+| Provider | Auth | Needs | Billed to |
+| --- | --- | --- | --- |
+| `api` (default) | Anthropic API key | nothing else | your API key (metered) |
+| `claude-code` | your Claude Code login | `claude` logged in | your Claude/Max plan |
+| `codex` | your Codex login | `codex login` | your ChatGPT plan |
+
+```bash
+# Direct API (default)
+mta run examples/tests/02-auth-smoke.md --url http://localhost:3000
+
+# Claude Code — uses your subscription (log in first: `claude`, then /login)
+mta run examples/tests/02-auth-smoke.md --url http://localhost:3000 --provider claude-code
+
+# Codex — uses your ChatGPT plan (log in first: `codex login`)
+mta run examples/tests/02-auth-smoke.md --url http://localhost:3000 --provider codex
+```
+
+Under the hood, the `claude-code` and `codex` providers drive a shared
+**Playwright browser MCP server** (`mta-browser-mcp`); the host agent runs the
+loop on your plan and ends with a `VERDICT: PASS/FAILED` line that `mta` parses.
+The `api` provider runs its own Anthropic tool-use loop in-process (no external
+CLI needed).
+
+## Inside a Claude Code or Codex session
+
+The same browser MCP server can be registered directly in your editor agent, so
+you can ask it to test a page mid-session.
+
+**Claude Code** — `.mcp.json` in your project:
+
+```json
+{
+  "mcpServers": {
+    "browser": { "command": "mta-browser-mcp" }
+  }
+}
+```
+
+**Codex** — `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.browser]
+command = "mta-browser-mcp"
+```
+
+Then ask the agent: *"Use the browser tools to open localhost:3000 and verify
+the login flow works."* Screenshots land under `.mytesterarmy/` (set
+`MTA_ARTIFACT_DIR` to change it). See `skills/mytesterarmy-cli/SKILL.md`.
+
 ## Usage
 
 ```
@@ -77,12 +131,13 @@ mta run <target> [options]
 
   <target>            A .md test file, a directory of tests, or a prompt string
 
-  -u, --url <url>     Target URL under test (substituted for <target_url>)
-  --headed            Show the browser window
-  --timeout <ms>      Per-action timeout (default 15000)
-  --max-steps <n>     Max agent turns per test (default 40)
-  --model <model>     Override the Claude model (default claude-opus-4-8)
-  --json              Machine-readable output for CI / coding agents
+  -u, --url <url>        Target URL under test (substituted for <target_url>)
+  -p, --provider <name>  api | claude-code | codex (default api)
+  --headed               Show the browser window
+  --timeout <ms>         Per-action timeout (default 15000)
+  --max-steps <n>        Max agent turns per test (default 40)
+  --model <model>        Override the model (default depends on provider)
+  --json                 Machine-readable output for CI / coding agents
 ```
 
 Other commands:
