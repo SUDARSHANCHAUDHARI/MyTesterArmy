@@ -2,18 +2,24 @@
 
 **AI QA agent that clicks through your website like a real human.**
 
+[![npm version](https://img.shields.io/npm/v/mytesterarmy?logo=npm&color=cb3837)](https://www.npmjs.com/package/mytesterarmy)
+[![npm downloads](https://img.shields.io/npm/dm/mytesterarmy?logo=npm)](https://www.npmjs.com/package/mytesterarmy)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
+[![node](https://img.shields.io/node/v/mytesterarmy)](https://nodejs.org)
+
 MyTesterArmy (`mta` / `mytesterarmy`) is an agent-first QA runner. It drives a
-real Chromium browser with Claude, reads each page like a tester would, and
-returns a deterministic **PASS** / **FAILED** verdict plus local artifacts.
+real browser with an LLM, reads each page like a tester would, and returns a
+deterministic **PASS** / **FAILED** verdict plus local artifacts.
 
 - Run browser checks from plain prompts.
 - Run reusable markdown scenarios (`examples/tests/*.md`).
 - Get deterministic pass/fail output plus screenshots and a `result.json`.
 - Feed concrete validation back to coding agents (`--json`).
+- Pick your runner: an Anthropic **API key**, your **Claude Code / Codex plan**,
+  or a **local Ollama** model — no key required.
 
 > Open-source, local-first replica of the [tester-army/cli](https://github.com/tester-army/cli)
-> concept. No cloud account required — it runs entirely on your machine against
-> the Anthropic API with your own key.
+> concept. No cloud account required — it runs entirely on your machine.
 
 ## How it works
 
@@ -36,12 +42,18 @@ and stops the moment a required check fails — naming the broken step.
 
 ## Quickstart
 
-Install dependencies and the browser, then build:
+Install globally from npm:
 
 ```bash
-npm install
-npx playwright install chromium
-npm run build
+npm install -g mytesterarmy
+npx playwright install chromium      # or set MTA_BROWSER_CHANNEL=chrome
+```
+
+Or run from source:
+
+```bash
+git clone https://github.com/SUDARSHANCHAUDHARI/MyTesterArmy.git
+cd MyTesterArmy && npm install && npm run build
 ```
 
 Authenticate. Either use a metered API key, or skip this and run on your
@@ -212,6 +224,18 @@ export MTA_BROWSER_CHANNEL=chrome
 mta run examples/tests/01-landing-page.md --url http://localhost:3000
 ```
 
+## Contributing
+
+Issues and PRs welcome — see [CONTRIBUTING.md](./CONTRIBUTING.md) and the issue
+templates in `.github/ISSUE_TEMPLATE/`.
+
+## Author
+
+Built by **Sudarshan Chaudhari** ([SudarshanTechLabs](https://github.com/SUDARSHANCHAUDHARI)).
+
+Inspired by the [tester-army/cli](https://github.com/tester-army/cli) concept;
+this is an independent, open-source, local-first implementation.
+
 ## License
 
-MIT
+[MIT](./LICENSE) © 2026 SudarshanTechLabs
