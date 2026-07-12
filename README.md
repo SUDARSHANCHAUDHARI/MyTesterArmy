@@ -42,18 +42,18 @@ and stops the moment a required check fails — naming the broken step.
 
 ## Quickstart
 
-Install globally from npm:
+Install globally from the npm registry with pnpm:
 
 ```bash
-npm install -g mytesterarmy
-npx playwright install chromium      # or set MTA_BROWSER_CHANNEL=chrome
+pnpm add -g mytesterarmy
+pnpm exec playwright install chromium # or set MTA_BROWSER_CHANNEL=chrome
 ```
 
 Or run from source:
 
 ```bash
 git clone https://github.com/SUDARSHANCHAUDHARI/MyTesterArmy.git
-cd MyTesterArmy && npm install && npm run build
+cd MyTesterArmy && pnpm install && pnpm run build
 ```
 
 Authenticate. Either use a metered API key, or skip this and run on your
@@ -216,7 +216,7 @@ Claude plugin via `.claude-plugin/marketplace.json`.
 
 ### No bundled Chromium? Use a system browser
 
-If `npx playwright install chromium` is blocked (locked-down CI, sandbox), point
+If `pnpm exec playwright install chromium` is blocked (locked-down CI, sandbox), point
 `mta` at an installed Chrome/Edge instead — no download needed:
 
 ```bash
