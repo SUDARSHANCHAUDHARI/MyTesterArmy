@@ -5,16 +5,16 @@ Thanks for helping improve MyTesterArmy.
 ## Dev setup
 
 ```bash
-npm install
-npx playwright install chromium      # or set MTA_BROWSER_CHANNEL=chrome
-npm run build
+pnpm install
+pnpm exec playwright install chromium # or set MTA_BROWSER_CHANNEL=chrome
+pnpm run build
 ```
 
 ## Workflow
 
-- `npm run dev -- run <test> --url <url>` — run the CLI from source via tsx.
-- `npm run typecheck` — must pass before opening a PR.
-- `npm run build` — compiles `src/` to `dist/`.
+- `pnpm run dev -- run <test> --url <url>` — run the CLI from source via tsx.
+- `pnpm run typecheck` — must pass before opening a PR.
+- `pnpm run build` — compiles `src/` to `dist/`.
 
 ## Project layout
 
@@ -38,7 +38,7 @@ src/
 
 - Keep all browser behavior in `browser.ts` so every provider stays consistent.
 - New providers go in `src/providers/` and register in `src/run.ts` (`PROVIDERS`).
-- Match the existing style; run `npm run typecheck` before committing.
+- Match the existing style; run `pnpm run typecheck` before committing.
 - Never commit secrets, `.env`, or `.mytesterarmy/` run artifacts (all gitignored).
 
 ## Filing issues

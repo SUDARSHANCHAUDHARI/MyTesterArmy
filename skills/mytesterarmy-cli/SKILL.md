@@ -42,7 +42,7 @@ mta auth
 First-time only — install the browser:
 
 ```bash
-npx playwright install chromium
+pnpm exec playwright install chromium
 ```
 
 ## Running Tests
