@@ -13,3 +13,6 @@ config.local.json
 
 # OS
 .DS_Store
+
+# repoguard scan output
+repoguard-results/
